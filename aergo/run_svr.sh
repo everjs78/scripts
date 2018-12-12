@@ -3,6 +3,8 @@
 
 BP_NAME=""
 echo $PWD
+cwd=$CWD
+cd $PWD
 
 for file in BP*.toml; do
     echo $file
@@ -13,3 +15,5 @@ for file in BP*.toml; do
 		aergosvr --config ./$file >> server_${BP_NAME}.log 2>&1 &
 	fi
 done
+cd $cwd
+
