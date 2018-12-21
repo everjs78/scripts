@@ -1,0 +1,4 @@
+export ARG_TEST_HOME=$PWD
+export ARG_TEST_SERVER="$ARG_TEST_HOME/server"
+export ARG_TEST_CLIENT="$ARG_TEST_HOME/client"
+
