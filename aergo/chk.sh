@@ -1,6 +1,4 @@
 #!/bin/sh
-cd $ARG_TEST_SERVER
-
 while [ 1 ]; do 
 	for file in BP*.toml; do
 		echo "file=$file"
