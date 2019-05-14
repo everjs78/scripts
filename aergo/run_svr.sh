@@ -15,7 +15,7 @@ for file in $(ls BP* | grep $pattern); do
 	echo $file
 	BP_NAME=$(echo $file | cut -f 1 -d'.')
 	if [ "${BP_NAME}" != "tmpl" -a "${BP_NAME}" != "arglog" ]; then
-	echo ${BP_NAME};
+	echo "${BP_NAME}"
 	aergosvr --config ./$file >> server_${BP_NAME}.log 2>&1 &
 	fi
 done

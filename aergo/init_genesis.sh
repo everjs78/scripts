@@ -68,7 +68,6 @@ if [ "${BP_NAME}" != "tmpl" -a "${BP_NAME}" != "arglog" ]; then
 	echo "sleep 3s to wait boot"
 	sleep 3
 
-
 	echo "unlock account ${wallet} "
 	echo "aergocli -p ${N_PORT} getstate --address ${wallet}"
 	aergocli -p ${N_PORT} getstate --address ${wallet}

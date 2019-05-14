@@ -9,11 +9,11 @@ fi
 # clean
 echo "kill_svr & clean 11004, 11005"
 kill_svr.sh 11004 11005
-rm -rf data11004 data11005
+rm -rf ./data/11004 ./data/11005
 rm -rf ./BP11004.toml ./BP11005.toml
 
 
-declare -A ports svrports svrname
+declare -A ports svrports svrname httpports peerids
 
 leader=$(aergocli -p 10001 blockchain | jq .ConsensusInfo.Status.Leader)
 leader=${leader//\"/}
@@ -30,6 +30,9 @@ for i in {1..5} ; do
 	svrports[$nodename]=$svrport
 	svrname[$nodename]="BP$svrport"
 
+	httpports[$nodename]=$((13000 + $i))
+	peerids[$nodename]=`cat $svrport.id`
+
 	echo "name=${svrname[$nodename]}"
 done
 
@@ -39,6 +42,7 @@ leaderport=${ports[$leader]}
 echo "leader=$leader, port=$leaderport"
 
 echo "aergocli -p $leaderport cluster add --name \"$addnode\" --url \"http://127.0.0.1:${httpports[$addnode]}\" --peerid \"${peerids[$addnode]}\""
+
 aergocli -p $leaderport cluster add --name "$addnode" --url "http://127.0.0.1:${httpports[$addnode]}" --peerid "${peerids[$addnode]}"
 
 echo "add Done" 
@@ -59,7 +63,4 @@ echo "cp ./source/$myConfig ."
 cp ./source/$myConfig .
 
 echo "init genesis for $mySvrName"
-./init_genesis.sh $mySvrName
-
-echo "run_svr.sh $mySvrport"
-run_svr.sh $mySvrport
+init_genesis.sh $mySvrName
