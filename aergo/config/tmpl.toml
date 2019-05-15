@@ -1,0 +1,41 @@
+# aergo TOML Configration File (https://github.com/toml-lang/toml)
+# base configurations
+datadir = "./data/_home_"
+enableprofile = true
+profileport = _prof_
+#loglevel = "info"
+#loglevel = "debug,CHAINSVC=debug,MEMPOOLSVC=error"
+enablerest = true
+[rest]
+restport = _rest_
+
+
+[rpc]
+netserviceaddr = "0.0.0.0"
+netserviceport = _rpc_
+nstls = false
+nscert = ""
+nskey = ""
+nsallowcors = false
+
+[p2p]
+netprotocoladdr = "127.0.0.1"
+netprotocolport = _p2p_
+nptls = false
+npcert = ""
+npkey = "_pk_"
+npaddpeers = [
+_peer_
+]
+
+[blockchain]
+# blockchain configurations
+blockchainplaceholder = false
+maxblocksize = 1000000
+usefastsyncer= true
+[mempool]
+showmetrics = true
+dumpfilepath ="./data/_home_/mempool.dump"
+[consensus]
+enablebp = true
+blockinterval = 1

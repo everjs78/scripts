@@ -6,9 +6,9 @@ if [ "$port" == "" ]; then
 fi
 
 accountNum=10
-txPerAcc=10
+txPerAcc=100
 
-rm ./*.txt ./$port ./*.tmp
+rm -rf ./*.txt ./$port ./*.tmp
 
 
 echo "================ generate txs acc=$accountNum txs=$txPerAcc ==============="
