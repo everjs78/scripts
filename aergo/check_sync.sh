@@ -30,8 +30,14 @@ function checkSync() {
 		targetNo=$((curHeight + 3))
 		if [ $targetNo -gt $srcHeight ]; then
 			echo "sync succeed"
+			isChainHang 2
 			echo ""
 			echo ""
+			hang=$?
+			if [ $hang = 1 ];then
+				echo "========= hang after sync ============"
+				exit 1
+			fi
 			return
 		fi
 

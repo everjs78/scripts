@@ -1,4 +1,4 @@
-#!/usr/local/bin bash
+#!/usr/bin/env bash
 
 declare -A ports svrports svrname httpports peerids
 
@@ -31,6 +31,8 @@ function getHeight() {
     local port=$1
 
     local serverport=$(($port + 1000))
+
+	echo "port=$1, serverport=$serverport"
 
     existProcess $serverport
     if [ "$?" = "0" ]; then
@@ -66,10 +68,17 @@ function getHash() {
 }
 
 function getleader() {
-	local curleader=$(aergocli -p 10001 blockchain | jq .ConsensusInfo.Status.Leader)
-	curleader=${curleader//\"/}
+	local curleader=""
+	for i in 10001 10002 10003 10004 10005 ; do
+		curleader=$(aergocli -p $i blockchain | jq .ConsensusInfo.Status.Leader)
+		curleader=${curleader//\"/}
+		if [[ "$curleader" == aergo* ]]; then
+			break
+		fi
+	done
+
 	if [[ "$curleader" != aergo* ]]; then
-		echo "leader not exist"
+		echo "<get leader failed>"
 		exit
 	fi
 
@@ -146,3 +155,102 @@ function getLeaderPort() {
 	eval "$1=$_leaderport"
 }
 
+
+function testxxx() {
+	local x
+		getleader x
+
+	echo "testleader=$x"
+}
+
+function isStableLeader() {
+	if [ $# -ne 1 ]; then
+		echo 'Usage: isStableLeader timeout. return value=$?'
+		exit
+	fi
+
+	timeout=$1
+
+	local _prevleader=""
+	local _tmpLeader=""
+
+	getleader _prevleader
+	getleader _tmpLeader
+
+	for ((i=1;i<=$timeout;i++))
+	do 
+		if [ "$_prevleader" != "$_tmpLeader" ]; then
+			return 0
+		fi
+
+		sleep 1
+	done
+
+	return 1
+}
+
+function changeLeader() {
+	if [ "$#" != 0 ];then
+		echo "Usage: changeLeader"
+		exit
+	fi
+
+	local leaderName
+
+	getleader leaderName
+
+	echo "cur leader: $leaderName"
+	
+	local leaderPort="" 
+	leaderPort=${svrports[$leaderName]}
+	echo "leaderport=$leaderPort"
+
+	kill_svr.sh $leaderPort
+	sleep 2
+	DEBUG_CHAIN_BP_SLEEP=$chainSleep run_svr.sh $leaderPort
+	sleep 2
+
+	leaderName=""
+	getleader leaderName
+	echo "new leader: $leaderName"
+}
+
+function isChainHang() {
+	# "isChainHang: return 1 if true"
+	if [ "$#" != "1" ];then
+		echo "Usage: isChainHang timeout"
+	fi
+
+	# 아무노드나 골라서 5초동안 chain이 증가하고 있는지 확인
+	local timeout=$1
+	local heightStart=""
+
+	echo "isChainHang($timeout)"
+	getHeight 10001
+	heightStart=$?
+
+	sleep $timeout
+
+	local heightEnd=""
+	getHeight 10001
+	heightEnd=$?
+
+	echo "start:$heightStart ~ end:$heightEnd"
+
+	if [ "$heightEnd" = "$heightStart" ];then
+		echo "chain is hanged"
+		return 1
+	fi
+
+
+	return 0
+}
+
+function checkReorg() {
+	reorgCount=$(egrep 'reorg' ./*.log | wc -l)
+
+	if [ "$reorgCount" != "0" ];then
+		echo "failed: reorg occured"
+		exit 100
+	fi
+}

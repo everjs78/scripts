@@ -1,19 +1,23 @@
-#!/bin/bash
-# call 디렉토리의 BP*.toml 을 읽어 서버 부트
+#!/usr/bin/env bash
 
-BP_NAME=""
-echo $PWD
-cwd=$CWD
-cd $PWD
+# 모든 test를 실행한다.
+# normal dpos tx test
+# syncer test
+# reorg test
+# crash recover test
 
-for file in BP*.toml; do
-    echo $file
-	BP_NAME=$(echo $file | cut -f 1 -d'.')
-	if [ "${BP_NAME}" != "tmpl" -a "${BP_NAME}" != "arglog" ]; then
-		echo ${BP_NAME};
-		echo "aergosvr --config ./$file >> server_${BP_NAME}.log 2>&1 &"
-		aergosvr --config ./$file >> server_${BP_NAME}.log 2>&1 &
-	fi
-done
-cd $cwd
-
+# raft server boot & down test
+pushd $ARG_TEST_DIR/raft/server
+# tx
+test_tx.sh
+# up & down
+test_up_down.sh
+test_leader_change.sh 5
+# slow follower/leader
+test_slow_follower.sh
+test_slow_leader.sh
+test_syncer_crash.sh 0
+test_syncer_crash.sh 1
+# membership add/remove
+test_member.sh
+popd

@@ -2,7 +2,7 @@
 addnode=$1
 
 if [ "$1" = "" ] || [ "$1" != "aergo4" -a "$1" != "aergo5" ] ;then
-	echo "use:add.sh aergo4|aergo5"
+	echo "use:add_member.sh aergo4|aergo5"
 	exit 1
 fi
 
@@ -63,4 +63,4 @@ echo "cp ./source/$myConfig ."
 cp ./source/$myConfig .
 
 echo "init genesis for $mySvrName"
-init_genesis.sh $mySvrName
+init_genesis.sh $mySvrName > /dev/null 2>&1

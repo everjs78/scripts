@@ -9,15 +9,18 @@ BP_NAME=""
 #./inittest.sh
 source chain_common.sh
 source check_sync.sh
-clean.sh
 
 rm BP11004* BP11005*
 
-echo ""
-echo "======== make initial server ========="
-cgen_wallet.sh 
+init=0
 
-sleep 10
+if [ "$init" != "0" ];then
+	echo ""
+	echo "======== make initial server ========="
+	clean.sh
+	cgen_wallet.sh 
+	sleep 3
+fi
 
 echo ""
 echo "========= add aergo4 ========="
@@ -46,3 +49,5 @@ rm_member.sh aergo5
 rm BP11005*
 
 checkSync 10001 10003 20 
+
+checkReorg

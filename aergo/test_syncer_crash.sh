@@ -6,7 +6,7 @@ fi
 
 CRASH_NO=$1
 method=""
-if [ "$CRASH_NO" = "0" ]; then
+if [ "$CRASH_NO" = "1" ]; then
 	method="FATAL"
 else 
 	method="ERROR"
