@@ -1,17 +1,12 @@
 #!/usr/bin/env bash
+source chain_common.sh
+
 addnode=$1
 
-if [ "$1" = "" ] || [ "$1" != "aergo4" -a "$1" != "aergo5" ] ;then
-	echo "use:add_member.sh aergo4|aergo5"
+if [ "$1" = "" ] || [[ "$1" != aergo* ]] ;then
+	echo "use:add_member.sh aergo4|aergo5|aergo6|aergo7"
 	exit 1
 fi
-
-# clean
-echo "kill_svr & clean 11004, 11005"
-kill_svr.sh 11004 11005
-rm -rf ./data/11004 ./data/11005
-rm -rf ./BP11004.toml ./BP11005.toml
-
 
 declare -A ports svrports svrname httpports peerids
 
@@ -21,21 +16,6 @@ if [[ $leader != aergo* ]]; then
 	echo "leader not exist"
 	exit 1
 fi
-
-for i in {1..5} ; do
-	nodename="aergo$i"
-
-	ports[$nodename]=$((10000 + $i))
-	svrport=$((11000 + $i))
-	svrports[$nodename]=$svrport
-	svrname[$nodename]="BP$svrport"
-
-	httpports[$nodename]=$((13000 + $i))
-	peerids[$nodename]=`cat $svrport.id`
-
-	echo "name=${svrname[$nodename]}"
-done
-
 
 leaderport=${ports[$leader]}
 

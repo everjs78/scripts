@@ -2,7 +2,9 @@
 
 declare -A ports svrports svrname httpports peerids
 
-for i in {1..5} ; do
+ALLIPS="10001 10002 10003 10004 10005 10006 10007"
+
+for i in {1..7} ; do
 	nodename="aergo$i"
 
 	ports[$nodename]=$((10000 + $i))
@@ -20,7 +22,6 @@ function existProcess() {
 
     local proc=$(ps  -ef|grep aergosvr | grep $port | awk '{print $2 }')
     if [ "$proc" = "" ]; then
-        echo "not exist"
         return "0"
     fi
 
@@ -254,4 +255,24 @@ function checkReorg() {
 		echo "failed: reorg occured"
 		exit 100
 	fi
+}
+
+
+# 모든 노드의 leader가 0이 아닌 valid node를 가르키는지
+function checkLeaderValid() {
+	local curleader=""
+	for i in $ALLIPS ; do
+		local _svrport=$(($i + 1000))
+		existProcess $_svrport
+		if [ "$?" != "1" ]; then
+			continue
+		fi
+
+		curleader=$(aergocli -p $i blockchain | jq .ConsensusInfo.Status.Leader)
+		curleader=${curleader//\"/}
+		if [[ "$curleader" != aergo* ]]; then
+			echo "failed: leader of $i is $curleader"
+			exit 100
+		fi
+	done
 }

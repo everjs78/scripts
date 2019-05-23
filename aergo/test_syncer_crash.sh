@@ -31,6 +31,7 @@ make_node.sh
 checkSync 10001 10002 10
 checkSync 10001 10003 10
 
+echo "kill for delaying 11003"
 kill_svr.sh 11003
 
 sleep 20

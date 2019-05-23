@@ -42,6 +42,8 @@ for ((idx=0; idx<=$try; idx++)); do
 		echo "============== failed: chain hanged =========="
 		exit 100
 	fi
+
+	checkLeaderValid
 done
 
 checkReorg

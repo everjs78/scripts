@@ -10,7 +10,7 @@ pkgen="aergocli keygen"
 # pkey는 항상 0~22까지를 생성. 존재하면 생성 skip
 
 if [ $# != 3 ]; then
-    echo "Usage: $0 <starting port> <template> <max>"
+    echo "Usage: $0 <starting port:10001~> <template> <max>"
     exit
 fi
 

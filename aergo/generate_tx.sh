@@ -1,12 +1,21 @@
 #!/bin/sh
 
+if [ $# != 2 ];then
+	echo "Usage: $0 port txPerAcc"
+	exit
+fi
+
 port=$1
 if [ "$port" == "" ]; then
     port=10001
 fi
 
+txPerAcc=$2
+if [ "$txPerAcc" == "" ]; then
+    txPerAcc=1000
+fi
+
 accountNum=10
-txPerAcc=1000
 
 rm -rf ./*.txt ./$port ./*.tmp
 

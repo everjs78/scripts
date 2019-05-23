@@ -7,7 +7,8 @@ fi
 
 function rmall(){
 	echo "rmall"
-	rm -rf *.id *.key *.pub BP*.toml
+	#rm -rf *.id *.key *.pub BP*.toml
+	rm -rf *.log
 }
 
 killall -9 aergosvr

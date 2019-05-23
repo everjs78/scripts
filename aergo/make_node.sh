@@ -15,6 +15,6 @@ rm -f genesis.json
 for file in BP*.toml; do
 	bpname=${file%%.toml}
 	echo "./init_genesis.sh $bpname"
-	init_genesis.sh $bpname > init_$bpnam.log 2>&1
+    init_genesis.sh $bpname > /dev/null 2>&1
 done
 

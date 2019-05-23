@@ -29,4 +29,3 @@ echo "aergocli -p $curLeaderPort cluster remove --nodeid $raftID"
 aergocli -p $curLeaderPort cluster remove --nodeid $raftID
 
 echo "remove Done" 
-

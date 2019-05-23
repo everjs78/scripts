@@ -8,8 +8,18 @@
 
 # raft server boot & down test
 pushd $ARG_TEST_DIR/raft/server
+
+
+echo "kill_svr & clean 11004~11007"
+kill_svr.sh
+for i in  11004 11005 11006 11007; do
+	rm -rf ./data/$i
+	rm -rf ./BP$i.toml
+done
+
+clean.sh all #remove log
 # tx
-test_tx.sh
+test_tx.sh 100
 # up & down
 test_up_down.sh
 test_leader_change.sh 10

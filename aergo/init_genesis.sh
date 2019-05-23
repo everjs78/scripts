@@ -63,7 +63,8 @@ if [ "${BP_NAME}" != "tmpl" -a "${BP_NAME}" != "arglog" ]; then
 
 	echo "start server ${BP_NAME} "
 	echo "aergosvr --home ${PWD} --config ./$file >> server_${BP_NAME}.log 2>&1 &"
-	aergosvr --home ${PWD} --config ./$file >> server_${BP_NAME}.log 2>&1 &
+#nohup aergosvr --home ${PWD} --config ./$file >> server_${BP_NAME}.log 2>&1 &
+	nohup aergosvr --home ${PWD} --config ./$file >> server_${BP_NAME}.log 2>&1 &
 
 	echo "sleep 3s to wait boot"
 	sleep 3
