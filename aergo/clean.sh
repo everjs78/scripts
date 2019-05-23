@@ -12,7 +12,7 @@ function rmall(){
 
 killall -9 aergosvr
 rm -rf data* genesis*
-rm *.log
+#rm *.log
 
 # make empty args to string
 if [ "$1" = "all" ]; then

@@ -26,7 +26,7 @@ clean.sh
 
 echo ""
 echo "======== make initial server ========="
-cgen_wallet.sh 
+make_node.sh 
 
 checkSync 10001 10002 10
 checkSync 10001 10003 10

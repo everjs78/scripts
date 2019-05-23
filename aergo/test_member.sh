@@ -12,13 +12,13 @@ source check_sync.sh
 
 rm BP11004* BP11005*
 
-init=0
+init=1
 
 if [ "$init" != "0" ];then
 	echo ""
 	echo "======== make initial server ========="
 	clean.sh
-	cgen_wallet.sh 
+	make_node.sh 
 	sleep 3
 fi
 

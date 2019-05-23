@@ -8,18 +8,19 @@ BP_NAME=""
 source chain_common.sh
 source check_sync.sh
 
-init=0
-chainSleep=2000
+init=1
+chainSleep=1000
 
 if [ "$init" != "0" ];then
 	echo ""
 	echo "======== make initial server ========="
 	clean.sh
-	cgen_wallet.sh 
+	make_node.sh 
 fi
 
 kill_svr.sh
 DEBUG_CHAIN_BP_SLEEP=$chainSleep run_svr.sh
+#run_svr.sh
 sleep 3
 
 try=$1

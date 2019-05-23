@@ -1,6 +1,6 @@
 # aergo TOML Configration File (https://github.com/toml-lang/toml)
 # base configurations
-datadir = "./data/_home_"
+datadir = "_data_"
 enableprofile = true
 profileport = _prof_
 #loglevel = "info"
@@ -35,7 +35,17 @@ maxblocksize = 1000000
 usefastsyncer= true
 [mempool]
 showmetrics = true
-dumpfilepath ="./data/_home_/mempool.dump"
+dumpfilepath ="_data_/mempool.dump"
 [consensus]
 enablebp = true
 blockinterval = 1
+
+[consensus.raft]
+newcluster=true
+name="_raftname_"
+snapfrequency=10
+listenurl="http://0.0.0.0:_http_"
+bps = [
+_raftbps_
+]
+#

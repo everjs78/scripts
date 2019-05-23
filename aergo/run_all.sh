@@ -12,7 +12,7 @@ pushd $ARG_TEST_DIR/raft/server
 test_tx.sh
 # up & down
 test_up_down.sh
-test_leader_change.sh 5
+test_leader_change.sh 10
 # slow follower/leader
 test_slow_follower.sh
 test_slow_leader.sh

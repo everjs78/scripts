@@ -12,28 +12,28 @@ clean.sh
 
 echo ""
 echo "======== make initial server ========="
-cgen_wallet.sh 
+make_node.sh 
 
 checkSync 10001 10002 30
 checkSync 10001 10003 30
 
 
-for ((idx=0; idx<=3; idx++)); do
+for ((idx=0; idx<=2; idx++)); do
 	echo "try $idx"
 	echo "======== shutdown aergo1 ============"
 	kill_svr.sh 11001
-	sleep 5
+	sleep 3
 	checkSync 10002 10003 30
 
 	echo "======== restart aergo1 ============"
 	run_svr.sh 11001
-	sleep 3
+	sleep 2
 	checkSync 10001 10003 30
 
 
 	echo "======== shutdown aergo2 ============"
 	kill_svr.sh 11002
-	sleep 5
+	sleep 3
 	checkSync 10001 10003 30
 
 	echo "======== restart aergo2 ============"

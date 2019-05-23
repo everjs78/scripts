@@ -4,7 +4,7 @@ BP_NAME=""
 
 #rm BP*.toml
 #./aergoconf-gen.sh 10001 tmpl.toml 5
-#./cgen_wallet.sh  10001 tmpl.toml 1234
+#./make_node.sh  10001 tmpl.toml 1234
 if [ -z "$1" ];then
 	pattern="BP.*toml"
 else

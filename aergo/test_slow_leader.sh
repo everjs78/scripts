@@ -8,7 +8,7 @@ echo "description: run aergo. Chain service of leader node works slowly."
 echo ""
 
 clean.sh
-cgen_wallet.sh
+make_node.sh
 
 kill_svr.sh
 

@@ -239,15 +239,16 @@ function isChainHang() {
 
 	if [ "$heightEnd" = "$heightStart" ];then
 		echo "chain is hanged"
-		return 1
+		exit 100
 	fi
 
+	echo "check succed"
 
 	return 0
 }
 
 function checkReorg() {
-	reorgCount=$(egrep 'reorg' ./*.log | wc -l)
+	reorgCount=$(egrep 'reorg' ./*.log | wc -l | awk '{print $1}')
 
 	if [ "$reorgCount" != "0" ];then
 		echo "failed: reorg occured"

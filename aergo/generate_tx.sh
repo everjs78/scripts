@@ -6,7 +6,7 @@ if [ "$port" == "" ]; then
 fi
 
 accountNum=10
-txPerAcc=100
+txPerAcc=1000
 
 rm -rf ./*.txt ./$port ./*.tmp
 

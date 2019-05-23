@@ -12,7 +12,7 @@ clean.sh
 
 echo ""
 echo "======== make initial server ========="
-cgen_wallet.sh 
+make_node.sh 
 
 checkSync 10001 10002 30
 checkSync 10001 10003 30
