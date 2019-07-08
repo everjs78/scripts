@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
-source chain_common.sh
+source test_common.sh
 
 echo ""
 echo "============================== raft server slow leader node test ============================"
 echo "description: run aergo. Chain service of leader node works slowly."
 echo ""
 
-clean.sh
 make_node.sh
 
 kill_svr.sh
@@ -20,6 +19,6 @@ isStableLeader 20
 ret=$?
 if [ "$ret" == "0" ];then
 	echo "=========== failed =========================="
-	exit
+	exit 100
 fi
 echo "=========== succeed =========================="

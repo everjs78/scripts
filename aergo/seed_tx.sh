@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ $# != 3 ];then
+	echo "Usage: $0 port genesis_addr startNonce"
+fi
+
 # 어떤 클라이언트
 port=$1
 # 지갑 갯수
@@ -12,6 +16,8 @@ target=10001
 
 echo ""
 echo "================== sign tx ====================="
+echo " run : $0 $port $genesis_addr $j"
+echo "================================================"
 
 # 지갑 생성 & 언락
 aergocli -p ${port} account unlock --address ${genesis_addr} --password 1234
@@ -21,7 +27,7 @@ echo "chainid=$chain_id_hash"
 
 # 트랜잭션 생성
 
-rm $genesis_addr.tmp
+rm -rf $genesis_addr.tmp
 touch $genesis_addr.tmp
 echo "[" >> $genesis_addr.tmp
 

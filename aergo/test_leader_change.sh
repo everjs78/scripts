@@ -5,18 +5,14 @@ BP_NAME=""
 
 #rm BP*.toml
 #./aergoconf-gen.sh 10001 tmpl.toml 5
-source chain_common.sh
-source check_sync.sh
+source set_test_env.sh
+source test_common.sh
 
-init=1
+pushd $TEST_RAFT_INSTANCE
+
 chainSleep=1000
 
-if [ "$init" != "0" ];then
-	echo ""
-	echo "======== make initial server ========="
-	clean.sh
-	make_node.sh 
-fi
+make_node.sh
 
 kill_svr.sh
 DEBUG_CHAIN_BP_SLEEP=$chainSleep run_svr.sh
@@ -34,7 +30,7 @@ for ((idx=0; idx<=$try; idx++)); do
 	changeLeader
 
 	# checkProgress
-	isChainHang  4
+	isChainHang  10001 4
 	ret=$?
 	echo "isHang=$ret"
 
@@ -50,3 +46,4 @@ checkReorg
 
 echo "============== succeed =========="
 
+popd

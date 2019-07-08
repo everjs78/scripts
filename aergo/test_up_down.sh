@@ -7,8 +7,7 @@ BP_NAME=""
 #./aergoconf-gen.sh 10001 tmpl.toml 5
 #clean.sh
 #./inittest.sh
-source check_sync.sh
-clean.sh
+source test_common.sh
 
 echo ""
 echo "======== make initial server ========="

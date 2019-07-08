@@ -11,14 +11,17 @@ pkgen="aergocli keygen"
 
 if [ $# != 3 ]; then
     echo "Usage: $0 <starting port:10001~> <template> <max>"
-    exit
+    exit 100
 fi
+
 
 port0=$1
 tmpl_file=$2
 max=$3
 gen_start=0
 gen_end=$(($max - 1))
+
+echo "Generate aergo config file from $tmpl_file, from $port0 to ($port0 + $max - 1)"
 
 function gen_ids() {
 	for ((i=1; i <= $max; i++))

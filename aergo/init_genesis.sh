@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 if [ $# != 1 ]; then
     echo "Usage: $0 <bpname>"
-    exit
+    exit 100
 fi
 
 bpname=$1
@@ -10,7 +10,7 @@ newpassword="1234"
 
 if [[ $bpname =~ "BP*" ]]; then
 	echo "Err: bpname($bpname) must have BP*"
-	exit
+	exit 100
 fi
 
 if [ ! -e genesis -o ! -e genesis.json ]; then 
@@ -29,6 +29,7 @@ if [ ! -e genesis -o ! -e genesis.json ]; then
 
 	sed  -e "s/_genesis_wallet_/${wallet}/g" _genesis.json > genesis.json
 else
+	echo "use prev genesis file"
 	wallet=$(cat ./genesis_wallet.txt)
     wif=$(cat ./wif.txt)
 fi
@@ -55,11 +56,10 @@ if [ "${BP_NAME}" != "tmpl" -a "${BP_NAME}" != "arglog" ]; then
 	echo "init genesis block "
 	echo "aergosvr init --genesis ./genesis.json --home ${PWD} --config ./$file"
 	aergosvr init --genesis ./genesis.json --home ${PWD} --config ./$file
-	
+
 	echo "import wallet ${wallet} to ${N_NAME} from local"
-	echo "aergocli -p ${N_PORT} account import --if ${wif} --password 1234 --path ${DATADIR}"
-	
-	aergocli -p ${N_PORT} account import --if ${wif} --password 1234 --newpassword ${newpassword} --path ${DATADIR} 
+	echo "aergocli account import --if ${wif} --password 1234 --path ${DATADIR}"
+	aergocli account import --if ${wif} --password 1234 --path ${DATADIR} 
 
 	echo "start server ${BP_NAME} "
 	echo "aergosvr --home ${PWD} --config ./$file >> server_${BP_NAME}.log 2>&1 &"
@@ -72,8 +72,8 @@ if [ "${BP_NAME}" != "tmpl" -a "${BP_NAME}" != "arglog" ]; then
 	echo "unlock account ${wallet} "
 	echo "aergocli -p ${N_PORT} getstate --address ${wallet}"
 	aergocli -p ${N_PORT} getstate --address ${wallet}
-	echo  "aergocli -p ${N_PORT} account unlock --address ${wallet} --password ${newpassword}"
-	aergocli -p ${N_PORT} account unlock --address ${wallet} --password ${newpassword}
+	echo  "aergocli -p ${N_PORT} account unlock --address ${wallet} --password 1234"
+	aergocli -p ${N_PORT} account unlock --address ${wallet} --password 1234 
 	echo "aergocli -p ${N_PORT} account list"
 	aergocli -p ${N_PORT} account list
 fi

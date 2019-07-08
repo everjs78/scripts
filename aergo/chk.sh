@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
+source set_test_env.sh
+
+pushd $TEST_RAFT_INSTANCE
+
 while [ 1 ]; do 
 	for file in BP*.toml; do
 		echo "file=$file"
@@ -8,3 +12,5 @@ while [ 1 ]; do
 sleep 2
 	echo "---------------"
 done
+
+popd

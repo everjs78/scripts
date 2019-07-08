@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source check_sync.sh
+source test_common.sh
 
 echo ""
 echo "============================== raft server slow follower node test ============================"
@@ -10,8 +10,6 @@ BP_NAME=""
 #./aergoconf-gen.sh 10001 tmpl.toml 5
 #clean.sh
 #./inittest.sh
-
-clean.sh
 
 echo ""
 echo "======== make initial server ========="

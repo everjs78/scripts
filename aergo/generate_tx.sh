@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 if [ $# != 2 ];then
 	echo "Usage: $0 port txPerAcc"
-	exit
+	exit 100
 fi
 
 port=$1
@@ -22,12 +22,13 @@ rm -rf ./*.txt ./$port ./*.tmp
 
 echo "================ generate txs acc=$accountNum txs=$txPerAcc ==============="
 
-server_dir="../server"
+server_dir=$TEST_RAFT_INSTANCE
+
 genesis_wallet=$(cat $server_dir/genesis_wallet.txt)
 echo "my genesis wallet=$genesis_wallet"
 if [ "$genesis_wallet" = "" ]; then
 	echo "genesis_wallet is empty"
-	exit
+	exit 100
 fi
 
 

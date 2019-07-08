@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+echo "============================== raft syncer crash test (crash=$method)============================"
+source test_common.sh
+
 
 if [ $# != 1 ];then
 	echo "Usage: $0 crashno(0=fatal, 1=error)"
@@ -12,8 +15,6 @@ else
 	method="ERROR"
 fi
 
-echo "============================== raft syncer crash test (crash=$method)============================"
-
 
 BP_NAME=""
 
@@ -21,8 +22,6 @@ BP_NAME=""
 #./aergoconf-gen.sh 10001 tmpl.toml 5
 #clean.sh
 #./inittest.sh
-source check_sync.sh
-clean.sh
 
 echo ""
 echo "======== make initial server ========="
@@ -36,6 +35,7 @@ kill_svr.sh 11003
 
 sleep 20
 DEBUG_SYNCER_CRASH=$CRASH_NO run_svr.sh 11003
+# aergo3 (11003)은 crash(CRASH_NO=1) or syncer 에러후(CRASH_NO=0) 정상 상태
 sleep 10
 
 # leader에서 aergo3의 raftstate가 Snapshot이 아니어야 한다. 
@@ -51,7 +51,7 @@ echo "state of aergo3 = $raftState"
 
 if [ "$raftState" = "ProgressStateSnapshot" ]; then
 	echo "=========== fail : state must not be snapshot =========="
-	exit
+	exit 100
 fi
 
 echo "============== success to catch crash of aergo3 =========="

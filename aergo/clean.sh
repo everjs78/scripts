@@ -1,11 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # usage: clean [all]
 if [ $# -gt 1 ]; then
 	echo "usage: clean [all]"
-	exit
+	exit 100
 fi
 
-function rmall(){
+function rmall() {
 	echo "rmall"
 	#rm -rf *.id *.key *.pub BP*.toml
 	rm -rf *.log
