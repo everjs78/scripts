@@ -1,0 +1,23 @@
+[user]
+	name = everjs78
+	email = everjs@gmail.com
+
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+[pull]
+	rebase = true
+
+[core]
+	editor = vim
+
+[diff]
+	tool = vimdiff
+
+[merge]
+	tool = vimdiff
+
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
