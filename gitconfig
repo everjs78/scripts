@@ -1,0 +1,27 @@
+[user]
+	name = jaeseok-an-hyperlounge
+	email = jaeseok.an@hyperlounge.ai
+
+[url "ssh://git@github.com/"]
+    insteadOf = https://github.com/
+[pull]
+	rebase = true
+
+[core]
+	editor = vim
+
+[diff]
+	tool = vimdiff
+
+[merge]
+	tool = vimdiff
+
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+
+[includeIf "gitdir:~/work/everjs78/"]
+    path = .gitconfig-everjs78
+

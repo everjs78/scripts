@@ -1,0 +1,7 @@
+s/handleSubmit/formSubmit/
+s/<Form/<ValidationObserver ref=\"observer\" v-slot=\"{ handleSubmit }\">\n<Form/
+s/\"formSubmit\"/"handleSubmit(formSubmit)"/
+s/Form>/\0\n<\/ValidationObserver>/
+s/:canSubmit=\"[a-z]\+\" //
+s/export default Vue/import ValidateInput from '@\/components\/inputs\/ValidateInput.vue';\nimport { ValidationObserver } from 'vee-validate';\n\n\0/
+s/Form,/Form,\nValidateInput,/

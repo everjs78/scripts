@@ -1,0 +1,11 @@
+# Personal account-userA 이건 주석이라 아무 내용이나 적어도 상관없습니다. 
+Host github.com-my
+    HostName github.com
+    User git
+	IdentityFile ~/.ssh/id_rsa
+
+# Personal account-userB
+Host github.com
+    HostName github.com
+    User git
+	IdentityFile ~/.ssh/id_rsa_hyperlounge
